@@ -144,18 +144,19 @@ abstract class BlockTag extends Tag
 					$this->mpdf->listcounter[$this->mpdf->listlvl] = 0;
 				}
 				$this->mpdf->listitem = [];
-				if ($tag === 'OL') {
-					$this->mpdf->listtype[$this->mpdf->listlvl] = 'decimal';
-				} elseif ($tag === 'UL') {
-					if ($this->mpdf->listlvl % 3 == 1) {
-						$this->mpdf->listtype[$this->mpdf->listlvl] = 'disc';
-					} elseif ($this->mpdf->listlvl % 3 == 2) {
-						$this->mpdf->listtype[$this->mpdf->listlvl] = 'circle';
-					} else {
-						$this->mpdf->listtype[$this->mpdf->listlvl] = 'square';
-					}
-				}
 			}
+
+            if ($tag === 'OL') {
+                $this->mpdf->listtype[$this->mpdf->listlvl] = 'decimal';
+            } elseif ($tag === 'UL' || $tag === 'LI') {
+                if ($this->mpdf->listlvl % 3 == 1) {
+                    $this->mpdf->listtype[$this->mpdf->listlvl] = 'disc';
+                } elseif ($this->mpdf->listlvl % 3 == 2) {
+                    $this->mpdf->listtype[$this->mpdf->listlvl] = 'circle';
+                } else {
+                    $this->mpdf->listtype[$this->mpdf->listlvl] = 'square';
+                }
+            }
 
 			// mPDF 6  Lists - in Tables
 			if ($tag === 'LI') {
