@@ -885,6 +885,16 @@ abstract class BlockTag extends Tag
 
 		// mPDF 6  Lists
 		if ($tag === 'LI') {
+            if (empty($currblk['list_style_type'])) {
+                if ($this->mpdf->listlvl % 3 == 1) {
+                    $currblk['list_style_type'] = 'disc';
+                } elseif ($this->mpdf->listlvl % 3 == 2) {
+                    $currblk['list_style_type'] = 'circle';
+                } else {
+                    $currblk['list_style_type'] = 'square';
+                }
+            }
+
 			if ($this->mpdf->listlvl == 0) { // in case of malformed HTML code. Example:(...)</p><li>Content</li><p>Paragraph1</p>(...)
 				$this->mpdf->listlvl++; // first depth level
 				$this->mpdf->listcounter[$this->mpdf->listlvl] = 0;
